@@ -23,3 +23,16 @@ echo $LANG
 起卡西！！！  这玩意居然完全没起作用！  导致保存中文时全是"?"，  查看/etc/profile 发现并不是UTF-8编码。
 删除容器，修改启动参数  `-e LANG="zh_CN.UTF-8"` 后一切正常。
 具体的docker启动逻辑没找到现成的文档，留待后面查看吧。  反正下次启动容器有必要的话一定要指定环境变量
+
+---
+又踩了一个Docker build 时的小坑。
+具体表现为Dockerfile 中添加的
+```
+RUN yum -y install vim redis-cli;
+```
+无法执行， 报错如下
+```
+"Could not resolve host: yum.tbsite.net; Name or service not known"
+```
+而手动启动镜像缺可以执行。
+问了下google大神， 发现报错原因和网络环境有关，启动Docker 时指定DNS服务(--dns) 可修复问题
