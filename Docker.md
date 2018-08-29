@@ -36,3 +36,13 @@ RUN yum -y install vim redis-cli;
 ```
 而手动启动镜像缺可以执行。
 问了下google大神， 发现报错原因和网络环境有关，启动Docker 时指定DNS服务(--dns) 可修复问题
+
+---
+接上个问题，
+昨天设置完之后没有充分测试，以为已经OK了。  
+其卡西！！！  今天又跑了下docker build 发现完全没有成功！ 还是原来的问题。
+问了下google大神又发现了以下文档： 
+[官方文档](https://success.docker.com/article/how-do-i-enable-the-remote-api-for-dockerd)
+[野生文档](https://www.ivankrizsan.se/2016/05/18/enabling-docker-remote-api-on-ubuntu-16-04/)
+简单概括下就是：
+>由于我的Docker是本地源码安装所以并不会使用__/etc/default/docker__为启动配置， 所以这个配置相当于白设置了。  所以只能退而求其次。直接覆盖Ubuntu service启动配置。 
